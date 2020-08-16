@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    
+    <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="true"/>
+    
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find my_kite_description)/worlds/wind.world"/>
+      <arg name="debug" value="$(arg debug)" />
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="paused" value="$(arg paused)"/>
+      <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+      <arg name="headless" value="$(arg headless)"/>
+      <arg name="verbose" value="$(arg verbose)"/>
+    </include>
+    
+    
+    
+    <include file="$(find my_kite_description)/launch/spawn_parafoil.launch"/>
+    
+    
+    
+    <include file="$(find my_kite_description)/launch/gimbal_controller.launch"/>
+    
+</launch>

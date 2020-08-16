@@ -1,0 +1,501 @@
+<?xml version="1.0"?> 
+<robot name="kite"> 
+
+    <material name="blue"> 
+        <color rgba="0 0 0.8 1"/> 
+    </material> 
+    <material name="red"> 
+        <color rgba="0.8 0 0 1"/> 
+    </material> 
+    <material name="green"> 
+        <color rgba="0 0.8 0 1"/> 
+    </material> 
+    <material name="grey"> 
+        <color rgba="0.75 0.75 0.75 1"/> 
+    </material> 
+    <material name="white"> 
+        <color rgba="1.0 1.0 1.0 1"/> 
+    </material> 
+    <material name="black"> 
+        <color rgba="0 0 0 1"/> 
+    </material> 
+  
+    <!-- * * * Link Definitions * * * --> 
+    
+    <link name="world"/>
+    
+    
+    <link name="ground_station"> 
+        <visual> 
+            <origin rpy="0 0 0" xyz="0 0 0"/> 
+            <geometry> 
+                <box size="2 1 1"/>  
+            </geometry>
+            <material name="grey"/> 
+        </visual> 
+        
+        <inertial> 
+            <origin xyz="0 0 1" rpy="0 0 0"/> 
+            <mass value="30" /> 
+            <inertia ixx="20" ixy="0.0" ixz="0.0" iyy="20" iyz="0.0" izz="20"/> 
+        </inertial>         
+        
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="2 1 1"/> 
+            </geometry>
+        </collision>
+    </link> 
+     
+    <gazebo reference="ground_station"> 
+        <kp>100000.0</kp> 
+        <kd>100000.0</kd> 
+        <mu1>10.0</mu1> 
+        <mu2>10.0</mu2> 
+        <material>Gazebo/Grey</material> 
+        <static>true</static>
+    </gazebo> 
+    
+     
+    <link name="gimbal1"> 
+        <visual> 
+            <origin rpy="0 0 0" xyz="0 0 0"/> 
+            <geometry> 
+                <sphere radius="0.2"/>  
+            </geometry> 
+            <material name="red"/>
+        </visual>
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>      
+        
+    </link> 
+    
+    <gazebo reference="gimbal1"> 
+        <kp>100000.0</kp> 
+        <kd>100000.0</kd> 
+        <mu1>10.0</mu1> 
+        <mu2>10.0</mu2> 
+        <material>Gazebo/Red</material> 
+    </gazebo> 
+    
+    
+    <link name="gimbal2"> 
+        <visual> 
+            <origin rpy="0 0 0" xyz="0 0 0"/> 
+            <geometry> 
+                <sphere radius="0.2"/>  
+            </geometry> 
+            <material name="green"/>
+        </visual>
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>
+        
+    </link> 
+    
+    <gazebo reference="gimbal2"> 
+        <kp>100000.0</kp> 
+        <kd>100000.0</kd> 
+        <mu1>10.0</mu1> 
+        <mu2>10.0</mu2> 
+        <material>Gazebo/Green</material> 
+    </gazebo> 
+    
+    
+    <link name="connector">  
+        <visual>  
+            <origin rpy="0 0 0" xyz="0 0 0"/>  
+            <geometry>  
+                <box size="0.1 0.1 0.1"/>   
+            </geometry>  
+            <material name="white"/> 
+        </visual>  
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>      
+        
+    </link>  
+     
+    <gazebo reference="connector">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+    
+    
+    <link name="tether">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <cylinder radius="0.0015" length="1"/>   
+            </geometry>   
+            <material name="white"/>  
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>     
+
+    </link>   
+    
+    <gazebo reference="tether">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+    
+    
+    <link name="control_pod">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <sphere radius="0.2"/> 
+            </geometry>   
+            <material name="black"/>  
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>      
+        
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <sphere radius="0.2"/> 
+            </geometry>    
+        </collision>    
+    </link>   
+    
+    <gazebo reference="control_pod">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/Black</material>  
+    </gazebo> 
+    
+    
+    <link name="briddle">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <cylinder radius="0.001" length="2"/>   
+            </geometry>   
+            <material name="white"/>  
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>    
+        
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <cylinder radius="0.001" length="2"/>   
+            </geometry>      
+        </collision>  
+    </link>   
+    
+    <gazebo reference="briddle">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+    
+    
+    <link name="briddle_x">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <sphere radius="0.001"/>
+            </geometry>   
+            <material name="white"/>  
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>     
+    </link>   
+    
+    <gazebo reference="briddle_x">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+    
+    
+    <link name="briddle_y">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <sphere radius="0.001"/>
+            </geometry>   
+            <material name="white"/>  
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="0.001" /> 
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/> 
+        </inertial>     
+    </link>   
+    
+    <gazebo reference="briddle_y">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+    
+    
+    <link name="parafoil">   
+        <visual>   
+            <origin rpy="0 0 0" xyz="0 0 0"/>   
+            <geometry>   
+                <mesh filename="package://my_kite_description/models/kite.dae"/>   
+            </geometry>    
+        </visual>   
+        
+        <inertial> 
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="1" /> 
+            <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/> 
+        </inertial>     
+        
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://my_kite_description/models/simplified_kite.dae"/>
+            </geometry>
+        </collision>
+    </link>   
+    
+    <gazebo reference="parafoil">  
+        <kp>100000.0</kp>  
+        <kd>100000.0</kd>  
+        <mu1>10.0</mu1>  
+        <mu2>10.0</mu2>  
+        <material>Gazebo/White</material>  
+    </gazebo> 
+        
+    
+     
+    <!-- * * * Joint Definitions * * * --> 
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/kite</robotNamespace>
+        </plugin>
+        
+        
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+            <alwaysOn>true</alwaysOn>
+            <bodyName>parafoil</bodyName>
+            <topicName>imu</topicName>
+            <serviceName>imu_service</serviceName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <updateRate>20.0</updateRate>
+        </plugin>
+
+    </gazebo>
+    
+    
+    <gazebo reference="parafoil">
+      <gravity>true</gravity>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+        <topic>__default_topic__</topic>
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+          <topicName>imu</topicName>
+          <bodyName>parafoil</bodyName>
+          <updateRateHZ>10.0</updateRateHZ>
+          <gaussianNoise>0.0</gaussianNoise>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+          <frameName>parafoil</frameName>
+          <initialOrientationAsReference>false</initialOrientationAsReference>
+        </plugin>
+        <pose>0 0 0 0 0 0</pose>
+      </sensor>
+    </gazebo>
+    
+    
+    <joint name="fixed" type="fixed">
+    	<parent link="world"/>
+    	<child link="ground_station"/>
+    </joint>
+    
+    
+    <joint name="gimbal_joint1" type="revolute"> 
+        <parent link="ground_station"/> 
+        <child link="gimbal1"/> 
+        <origin xyz="0 0 0.5" rpy="0 0 0"/> 
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.571" upper="1.571" effort="1000" velocity="0.01"/>
+    </joint>
+    
+    <transmission name="gimbal_x">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gimbal_joint1">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor1">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1000</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+    <joint name="gimbal_joint2" type="revolute"> 
+        <parent link="gimbal1"/> 
+        <child link="gimbal2"/> 
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <axis xyz="0 1 0"/>
+        <limit lower="-1.571" upper="1.571" effort="1000" velocity="0.005"/>
+    </joint>
+    
+    <transmission name="gimbal_y">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gimbal_joint2">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor2">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1000</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+    <joint name="connector_joint" type="fixed">  
+        <parent link="gimbal2"/>  
+        <child link="connector"/>  
+        <origin xyz="0 0 0.2" rpy="0 0 0"/>  
+    </joint> 
+    
+    
+    <joint name="tether_joint" type="prismatic">   
+        <parent link="connector"/>   
+        <child link="tether"/>   
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>   
+        <axis xyz="0 0 1"/>
+        <limit lower="0" upper="300" effort="500" velocity="0.005"/> 
+    </joint>  
+    
+    <transmission name="tether_length">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="tether_joint">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor4">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1000</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+    <joint name="control_pod_joint" type="fixed">   
+        <parent link="tether"/>   
+        <child link="control_pod"/>   
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>   
+    </joint>      
+    
+    
+    <joint name="briddle_joint" type="fixed">   
+        <parent link="control_pod"/>   
+        <child link="briddle"/>   
+        <origin xyz="0 0 1" rpy="0 0 0"/>   
+    </joint> 
+    
+    
+    <joint name="briddle_x_joint" type="revolute">   
+        <parent link="briddle"/>   
+        <child link="briddle_x"/>   
+        <origin xyz="0 0 1" rpy="0 0 0"/> 
+        <axis xyz="1 0 0"/>
+        <limit lower="-1.571" upper="1.571" effort="100" velocity="0.005"/>
+    </joint>
+    
+    <transmission name="kite_x">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="briddle_x_joint">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor4">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>300</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+    <joint name="briddle_y_joint" type="revolute">   
+        <parent link="briddle_x"/>   
+        <child link="briddle_y"/>   
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <axis xyz="0 1 0"/>
+        <limit lower="-1.571" upper="1.571" effort="500" velocity="0.005"/>
+    </joint>
+    
+    <transmission name="kite_y">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="briddle_y_joint">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor5">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>300</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+    <joint name="briddle_z_joint" type="revolute">   
+        <parent link="briddle_y"/>   
+        <child link="parafoil"/>   
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <axis xyz="0 0 1"/>
+        <limit lower="-1.571" upper="1.571" effort="500" velocity="0.005"/>
+    </joint>
+    
+    <transmission name="kite_z">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="briddle_z_joint">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor6">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>300</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    
+</robot>
+ 
+

@@ -1,0 +1,16 @@
+<launch>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find my_kite_description)/config/gimbal_controller.yaml" command="load"/>
+
+  <!-- load the controllers -->
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/kite" args="gimbal_joint1_position_controller gimbal_joint2_position_controller briddle_x_joint_position_controller briddle_y_joint_position_controller briddle_z_joint_position_controller  tether_joint_position_controller joint_state_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/kite/joint_states"/>
+  </node>
+
+</launch>
